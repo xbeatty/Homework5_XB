@@ -6,7 +6,14 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  results = 'markup',
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE)
+
 ```
 
 ## R Markdown
