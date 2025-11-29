@@ -46,5 +46,23 @@ homicides <- homicides %>%
 
 ```
 
+## Selecting only Baltimore Data
 
+```{r selecting baltimoredata}
+
+baltimore_monthly <- homicides %>%
+  filter(city_name == "Baltimore, MD") %>%
+  mutate(month = floor_date(reported_date, "month")) %>%
+  count(month, name = "homicides")
+
+baltimore_monthly <- baltimore_monthly %>%
+  mutate(
+    season = ifelse(month(month) %in% c(11,12,1,2,3,4),
+                    "Winter", "Summer")
+  )
+
+freddie_date <- as.Date("2015-04-12")
+
+
+```
 
