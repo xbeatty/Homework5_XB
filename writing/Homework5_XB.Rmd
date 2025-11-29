@@ -27,17 +27,15 @@ library(purrr)
 library(ggplot2)
 library(stringr)
 library(lubridate)
+library(here)
 
 ```
 
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Reading in the data
 
 ```{r reading in the data}
 
-setwd("~/ERHS 535/Homework5_XB/data")
-
-homicides <- read.csv("homicide-data.csv")
+homicides <- read.csv(here("data", "homicide-data.csv"))
 
 # Creating a new column combining city and state
 homicides <- homicides %>%
@@ -48,83 +46,5 @@ homicides <- homicides %>%
 
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-
-baltimore_monthly <- homicides %>%
-  filter(city_name == "Baltimore, MD") %>%
-  mutate(month = floor_date(reported_date, "month")) %>%
-  count(month, name = "homicides")
-
-baltimore_monthly <- baltimore_monthly %>%
-  mutate(
-    season = ifelse(month(month) %in% c(11,12,1,2,3,4),
-                    "Winter", "Summer")
-  )
-
-freddie_date <- as.Date("2015-04-12")
-
-
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-```{r}
-
-ggplot(baltimore_monthly, aes(x = month, y = homicides, fill = season)) +
-  geom_col(color = "gray30") +
-  scale_fill_manual(values = c("Summer" = "skyblue", "Winter" = "lightgray")) +
-  
-  geom_smooth(se = FALSE, color = "blue", size = 1) +
-
-  geom_vline(
-    xintercept = freddie_date,
-    color = "red", linetype = "dashed", size = 1
-  ) +
-
-  annotate("text",
-           x = freddie_date + 150,
-           y = max(baltimore_monthly$homicides) * 0.95,
-           label = "Arrest of\nFreddie Gray",
-           color = "red", hjust = 0) +
-
-  labs(
-    title = "Homicides in Baltimore, MD",
-    x = "Date",
-    y = "Monthly homicides",
-    fill = ""
-  ) +
-
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.background = element_rect(fill = "gray20", color = NA),
-    plot.background = element_rect(fill = "gray20", color = NA),
-    panel.grid.major = element_line(color = "gray40"),
-    panel.grid.minor = element_blank(),
-    axis.text = element_text(color = "white"),
-    axis.title = element_text(color = "white"),
-    plot.title = element_text(color = "white", face = "bold"),
-    legend.position = "bottom",
-    legend.text = element_text(color = "white")
-  )
-
-homicides <- homicides %>%
-  mutate(
-    reported_date = ymd(reported_date),
-    city_name = paste(city, state, sep = ", ")
-  )
-
-baltimore_monthly <- homicides %>%
-  filter(city_name == "Baltimore, MD") %>%
-  mutate(month = floor_date(reported_date, "month")) %>%
-  count(month, name = "homicides") %>%
-  mutate(season = ifelse(month(month) %in% c(11,12,1,2,3,4),
-                         "Winter", "Summer"))
-
-freddie_date <- as.Date("2015-04-12")
-
-```
 
