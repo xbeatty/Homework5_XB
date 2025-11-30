@@ -28,3 +28,6 @@ ability to track how results were generated are essential.
 1. Open the R project (.Rproj file).
 2. Open the RMarkdown file in the writing/ folder.
 3. Click Knit to produce the final report.
+
+# Author
+Xuan Beatty
