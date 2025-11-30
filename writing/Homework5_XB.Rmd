@@ -63,6 +63,50 @@ baltimore_monthly <- baltimore_monthly %>%
 
 freddie_date <- as.Date("2015-04-12")
 
+```
+
+## Baltimore Graph
+
+Recreate a graph that shows monthly homicides in Baltimore, with a reference added for the date of the arrest of Freddie Gray and color used to show colder months (November through April) versus warmer months (May through October). There is a smooth line added to help show seasonal and long-term trends in this data.
+
+
+```{r fig.width=12, fig.height=4}
+
+ggplot(baltimore_monthly, aes(x = month, y = homicides, fill = season)) +
+  geom_col(color = "gray30") +
+  scale_fill_manual(values = c("Summer" = "lightgray", "Winter" = "skyblue")) +
+  
+
+  geom_smooth(aes(group = 1), se = FALSE, color = "blue", size = 1, span = 0.2) +
+  
+  geom_vline(
+    xintercept = freddie_date,
+    color = "red", linetype = "dashed", size = 1) +
+
+  annotate("text",
+           x = freddie_date + 150,
+           y = max(baltimore_monthly$homicides) * 0.95,
+           label = "Arrest of\nFreddie Gray",
+           color = "red", hjust = 1.75, size = 5) +
+
+  labs(
+    title = "Homicides in Baltimore, MD",
+    x = "Date",
+    y = "Monthly homicides",
+    fill = "") +
+
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.background = element_rect(fill = "gray50", color = NA),
+    plot.background = element_rect(fill = "gray50", color = NA),
+    panel.grid.major = element_line(color = "gray40"),
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(color = "white"),
+    axis.title = element_text(color = "white"),
+    plot.title = element_text(color = "white", face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(color = "white"))
 
 ```
+
 
