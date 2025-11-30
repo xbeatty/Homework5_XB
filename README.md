@@ -6,7 +6,7 @@ and reproducible workflows using R and RMarkdown.
 
 - `data/` – datasets used in the analysis  
 - `figures/` – generated figures  
-- `writing/` – RMarkdown homework file  
+- `writing/` – RMarkdown report and rendered HTML/PDF output
 - `Homework5_XB.Rproj` – RStudio project file
 
 
@@ -19,3 +19,7 @@ with different drafts or versions, Git organizes everything including code,
 data, output in a reversible history. This is especially important in research 
 settings (like data analysis in R) where reproducibility, transparency, and the 
 ability to track how results were generated are essential.
+
+# Requirements
+- R version 4.3 or higher
+- Required packages: tidyverse, knitr, readr, ggplot2
